@@ -8,7 +8,7 @@
 <body>
     <h1>Create a New Task</h1>
 
-    <form action="/tasks/store" method="POST">
+    <form action="/tasks" method="POST">
         @csrf
         <label for="title">Title:</label>
         <input type="text" id="title" name="title"><br>
