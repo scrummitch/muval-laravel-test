@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('status');
+            $table->tinyInteger('status');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
