@@ -13,9 +13,18 @@
     @foreach ($tasks as $task)
         <li>
             {{ $task->title }} - Assigned to: {{ $task->user->name ?? 'Unknown' }}
-            <a href="/tasks/{{ $task->id }}/edit">Edit</a> | <a href="/tasks/{{ $task->id }}/delete">Delete</a>
+            <a href="/tasks/{{ $task->id }}/edit">Edit</a> |
+
+            <form action="{{ route('tasks.destroy', $task) }}" style="display:inline-block;" method="POST" onSubmit="confirm('Are you sure?')">
+                @csrf
+                @method('DELETE')
+                <button>Delete</button>
+            </form>
         </li>
     @endforeach
+    @if($tasks->isEmpty())
+        <h1>Yikes, you dont have any tasks!</h1>
+    @endif
 </ul>
 <form action="{{ route('logout') }}" method="POST" style="display: inline;">
     @csrf

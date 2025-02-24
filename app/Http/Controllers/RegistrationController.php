@@ -22,14 +22,16 @@ class RegistrationController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        $user = User::create([
+        $user = new User();
+        $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
         ]);
+        $user->password = Hash::make($request->password);
+        $user->save();
 
         Auth::login($user);
 
-        return redirect()->intended('tasks')->with('success', 'Registration successful!');
+        return response()->noContent();
     }
 }

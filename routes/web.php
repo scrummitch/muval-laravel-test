@@ -1,28 +1,27 @@
 <?php
 
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserSessionsController;
 use App\Http\Controllers\RegistrationController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TasksController;
 
-Route::get('/', [LoginController::class, 'index']);
+Route::view('/', 'index');
 
-Route::get('/login', [LoginController::class, 'index'])->name('home');
-Route::POST('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/login', [UserSessionsController::class, 'login'])->name('login');
+Route::post('/login', [UserSessionsController::class, 'store'])->name('store');
 
 Route::get('/register', [RegistrationController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegistrationController::class, 'register'])->name('register');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::post('/logout', [UserSessionsController::class, 'logout'])->name('logout');
+    Route::resource('tasks', TasksController::class);
 
-    Route::POST('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/tokens/create', function (Request $request) {
+        $token = $request->user()->createToken($request->token_name);
 
-    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
-    Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-    Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
-    Route::get('/tasks/{id}/edit', [TaskController::class, 'edit']);
-    Route::post('/tasks/update/{id}', [TaskController::class, 'update']);
-    Route::get('/tasks/{id}/delete', [TaskController::class, 'destroy']);
-
+        return ['token' => $token->plainTextToken];
+    });
 });

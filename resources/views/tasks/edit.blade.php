@@ -8,7 +8,8 @@
 <body>
     <h1>Edit Task</h1>
 
-    <form action="/tasks/update/{{ $task->id }}" method="POST">
+    <form action="/tasks/{{ $task->id }}" method="POST">
+        @method('patch')
         @csrf
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="{{ $task->title }}"><br>
@@ -26,6 +27,8 @@
         <!-- Using inline JavaScript (not recommended) -->
         <button type="submit" onclick="return confirm('Are you sure you want to save changes?')">Save</button>
     </form>
+
+    @include('_partials/errorlist')
 
     <a href="/tasks">Back to Task List</a>
 </body>
