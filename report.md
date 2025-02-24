@@ -37,8 +37,9 @@ TasksController - general
 - some people prefer controllers to have return types, but its not a big deal as often this is handled in middleware
 
 TasksController@index
-- Tasks should probably be scoped to user 
-- Loop within controller not required, doesn't do anything
+- Tasks should probably be scoped to user
+- Tasks::all() isn't a real function, should be Tasks::query()->get()
+- Loop within controller not required, doesn't do anything, to remove
 - In view
   - View lazy loads user relationship, should use Task::with('user') in controller
   - Generally should ONLY support delete via POST 
