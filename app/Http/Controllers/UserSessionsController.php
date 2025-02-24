@@ -5,13 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class UserSessionsController extends Controller
 {
-    public function index()
-    {
-        return view('index');
-    }
-
     public function login(Request $request)
     {
         $credentials = $request->validate([
