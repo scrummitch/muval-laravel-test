@@ -1,5 +1,11 @@
 # **Muval Backend Code Test Instructions**
 
+Check out [OurEventAlbum](https://oureventalbum.com)
+
+and 
+
+[MetaKit](https://metakit.app)
+
 ## **Overview**
 This task is designed to assess your ability to:
 1. Identify issues in a Laravel codebase.
